@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////
 
 var myDevice = 'http://www.korichkov.com/vvk/gps/cdf216ebb48f96ff';
+var myFiles = 'http://www.korichkov.com/vvk/files';
 var deviceId = 'cdf216ebb48f96ff';
 
 //////////////////////////////////////////////////////////////////
@@ -103,22 +104,37 @@ var app = {
           var popupContent = "Device Id " + deviceId;
           var radius = 5;
 
-          if(!this.currentPosMarker){
-            this.currentPosMarker = L.marker(latlng).addTo(map)
+          if(!that.currentPosMarker){
+            that.currentPosMarker = L.marker(latlng).addTo(map)
               .bindPopup(popupContent).openPopup();
           }
           
-          this.currentPosMarker.bindPopup(popupContent).setLatLng(latlng).update().openPopup();
-          if(!this.currentPosCircle){
-            this.currentPosCircle = L.circle(latlng, radius).addTo(map);
+          that.currentPosMarker.bindPopup(popupContent).setLatLng(latlng).update().openPopup();
+          if(!that.currentPosCircle){
+            that.currentPosCircle = L.circle(latlng, radius).addTo(map);
           } else {
-            map.removeLayer(this.currentPosCircle);
-            this.currentPosCircle = L.circle(latlng, radius).addTo(map);
+            map.removeLayer(that.currentPosCircle);
+            that.currentPosCircle = L.circle(latlng, radius).addTo(map);
           }
 
           map.setZoom(19).panTo(latlng);
-
         });
+      
+      that.files = that.files || {};
+      $.getJSON(myFiles, function(data) {
+        for(var key in data){
+          var fileName = data[key];
+          if(!that.files.hasOwnProperty(fileName)){
+            var latlng = fileName.split('__').slice(1,2)[0].replace(/\s/g, '').replace(/lat:/g, '').replace(/lng:/g, '');
+            if(latlng !== '-1,-1'){
+              latlng = latlng.split(',');
+              var href = 'http://www.korichkov.com/static/' + fileName;
+              var marker = L.marker(latlng).addTo(map).bindPopup('<a target="_blank" href="'+ href +'">Link to media</a>');
+              that.files['fileName'] = marker;
+            }
+          }
+        }
+      });
     },
 
     onGpsSuccess: function (position) {

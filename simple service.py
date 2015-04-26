@@ -23,7 +23,7 @@ def do_upload(uuid, coords):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     file = request.files.get('file')
-    name = uuid + '#' + coords + '#' + file.filename
+    name = uuid + '__' + coords + '__' + file.filename
     file_path = "{path}/{file}".format(path=save_path, file=name)
     file.save(file_path, overwrite=True)
 
