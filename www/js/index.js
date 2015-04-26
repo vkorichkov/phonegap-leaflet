@@ -19,7 +19,96 @@
 
 //////////////////////////////////////////////////////////////////
 
-var mytrack = {
+var trackForPlay = [
+  {
+    lng:23.32173228263855,
+    lat:42.70188171657805
+  },
+  {
+    lng:23.321603536605835,
+    lat:42.70143229621425
+  },
+  {
+    lng:23.32193613052368,
+    lat:42.70140075782095
+  },
+  {
+    lng:23.32270860671997,
+    lat:42.70127460408752
+  },
+  {
+    lng:23.322365283966064,
+    lat:42.700210171756446
+  },
+  {
+    lng:23.32170009613037,
+    lat:42.697892011536766,
+    poi:[{
+        desc: "Света София",
+        images: ['http://monuments.bg/img/photos/1x700_94943__6017977.jpg'],
+        lng:23.322020,
+        lat:42.697651
+      },
+    ]
+  },
+  {
+    lng:23.32170009613037,
+    lat:42.697892011536766,
+    poi:[{
+        desc: "Метро станция Сердика",
+        images: ['http://www.sofia-guide.com/assets/metro_serdika_tzum.jpg'],
+        lng:23.321140,
+        lat:42.698005
+      },
+    ]
+  },
+  {
+    lng:23.334660530090332,
+    lat:42.69245109152106
+  },
+  {
+    lng:23.332428932189938,
+    lat:42.68614218171535
+  },
+  {
+    lng:23.331377506256104,
+    lat:42.686063316287765
+  },
+  {
+    lng:23.330562114715576,
+    lat:42.68544816251638
+  },
+  {
+    lng:23.331034183502194,
+    lat:42.68338183217684
+  },
+  {
+    lng:23.332021236419674,
+    lat:42.678838818493894
+  },
+  {
+    lng:23.333373069763184,
+    lat:42.6768669209854
+  },
+  {
+    lng:23.33320140838623,
+    lat:42.676677615532626
+  },
+  {
+    lng:23.333566188812256,
+    lat:42.676251676155346
+  },
+  {
+    lng:23.33000421524048,
+    lat:42.67500539232029
+  },
+  {
+    lng:23.330454826354977,
+    lat:42.674484785342756
+  }
+];
+
+var mytracks = {
   "type": "FeatureCollection",
   "features": [
     {
@@ -229,7 +318,7 @@ var app = {
 
         map.on('click', onMapClick);
 
-        this.showTrackgeoJson(map, mytrack);
+        this.showTrackgeoJson(map, mytracks);
 
         this.map = map;
     },
@@ -297,6 +386,35 @@ var app = {
       }
     },
 
+    dummyCurrentPosition: function(that, map, position){
+      console.log('dummyCurrentPosition');
+      var latlng = [position['lat'], position['lng']];
+      var radius = 40;
+      var popupContent = '';
+
+      if(position.hasOwnProperty('poi')){
+        var poiList = position['poi'];
+        console.log('poi' + poiList);
+        var desc = poiList[0].desc;
+        var href = poiList[0].images[0];
+        var poiLatLng = [poiList[0].lat, poiList[0].lng];
+        var popupContent = '<img height="100px" width="100px" src="' + href + '">'+ "<br>" + desc;
+
+        if(popupContent !== ''){
+          that.poiToRemove = that.poiToRemove || [];
+          that.poiToRemove.push(L.marker(poiLatLng).addTo(map).bindPopup(popupContent).openPopup());
+        }
+      }
+      
+      if(!that.currentPosCircle){
+        that.currentPosCircle = L.circle(latlng, radius).addTo(map);
+      } else {
+        map.removeLayer(that.currentPosCircle);
+        that.currentPosCircle = L.circle(latlng, radius).addTo(map);
+      }
+      map.setZoom(16).panTo(latlng);
+    },
+
     // onError Callback receives a PositionError object
     onGpsError: function (error) {
       console.log('onGpsError');
@@ -308,7 +426,7 @@ var app = {
       L.geoJson(track, {
         style: {
           color: '#ff0000',
-          weight: 1,
+          weight: 3,
           opacity: 1
         }
       }).addTo(map);
@@ -364,6 +482,32 @@ var app = {
         'toggleStatus': false  // bool
       };
       this.recordingButton = new L.Control.Button(notesOptions).addTo(map);
+
+      var copytrack = trackForPlay.slice();
+      function demo() {
+        console.log("demo");
+        if(copytrack.length === 0){
+          copytrack = trackForPlay.slice();
+          that.poiToRemove = that.poiToRemove || [];
+          for(var key in that.poiToRemove){
+            that.map.removeLayer(that.poiToRemove[key]);
+          }
+          return;
+        }
+        window.setTimeout(demo, 1800);
+        that.dummyCurrentPosition(that, that.map, copytrack.pop());
+      }
+
+      var demoOptions = {
+        'text': 'Demo',
+        'iconUrl': 'img/icon-play.png',
+        'onClick': demo,
+        'hideText': false,
+        'maxWidth': 30,  // number
+        'doToggle': false,  // bool
+        'toggleStatus': false  // bool
+      };
+      this.demoButton = new L.Control.ButtonTopLeft(demoOptions).addTo(map);
     },
 
     addNotesAndFiles: function(){
@@ -438,10 +582,17 @@ var app = {
     },
 
     dumpLocalStorage: function(){
+      console.log(window.device.uuid);
+
       var storage = window.localStorage;
+      var filesToSync = '';
       for(var key in storage){
-        console.log(key + ' :: ' + storage[key]);
+        console.log('Key:' + key + ' || File:' + storage[key]);
+        filesToSync += 'Key:' + key + '\nFile:' + storage[key] + '\n';
       }
+
+      var trackName = this.trackName || "Test Track Name"; // todo
+      navigator.notification.alert(filesToSync, null, 'Files For Sync('+ trackName +')');
     },
 
     // Bind Event Listeners

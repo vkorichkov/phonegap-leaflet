@@ -63,6 +63,10 @@
                         {
                             "xml": "<feature name=\"Capture\"><param name=\"android-package\" value=\"org.apache.cordova.mediacapture.Capture\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -83,6 +87,9 @@
             "PACKAGE_NAME": "com.smewebsites.map"
         },
         "org.apache.cordova.media-capture": {
+            "PACKAGE_NAME": "com.smewebsites.map"
+        },
+        "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.smewebsites.map"
         }
     },
