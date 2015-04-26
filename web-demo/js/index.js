@@ -268,9 +268,6 @@ var mytracks = {
   ]
 };
 
-var myDeviceGpsUrl = 'http://www.korichkov.com/vvk/gps/';
-var myDeviceFilesUrl = 'http://www.korichkov.com/vvk/files/';
-
 //////////////////////////////////////////////////////////////////
 
 var app = {
@@ -355,11 +352,8 @@ var app = {
     onGpsSuccess: function (position) {
       console.log('onGpsSuccess');
       console.log(position.coords.latitude);
-      coords = 'lat:' + position.coords.latitude + ',lng:' + position.coords.longitude;
-      $.get(myDeviceGpsUrl + window.device.uuid + '/' + coords);
 
       this.showCurrentPosition(this.map, position);
-
       // Latitude, Longitude, Altitude, Accuracy, Heading, Timestamp
       //  $('#geolocation').html('Latitude: '        + position.coords.latitude              + '<br />' + 
       //                      'Longitude: '          + position.coords.longitude             + '<br />' +
@@ -375,7 +369,8 @@ var app = {
       console.log(position.coords.longitude);
       var radius = position.coords.accuracy / 2;
       var latlng = [position.coords.latitude, position.coords.longitude];
-      var popupContent = "You are within " + radius + " meters from this point";
+      var popupContent = '<img height="100px" width="100px" src="' + document.getElementById('myImage').src + '">'+
+        "<br>You are within " + radius + " meters from this point";
 
       if(!this.currentPosMarker){
         this.currentPosMarker = L.marker(latlng).addTo(map)
@@ -389,8 +384,6 @@ var app = {
         map.removeLayer(this.currentPosCircle);
         this.currentPosCircle = L.circle(latlng, radius).addTo(map);
       }
-
-      this.currentPosition = position;
     },
 
     dummyCurrentPosition: function(that, map, position){
@@ -437,53 +430,6 @@ var app = {
           opacity: 1
         }
       }).addTo(map);
-    },
-
-    syncFiles: function(){
-      var localStorage = window.localStorage;
-      var trackName = (this.trackName || "Test Track Name").replace(/\s/g, ''); // todo
-      var keys = [];
-      for (var key in localStorage){
-        if(key.indexOf(trackName) !== -1 && key.indexOf('coords') === -1){
-          //keys.push(key);
-          var keyparts = key.split('.')
-          var mediaFile = {
-            trackId: keyparts[0],
-            mediaType: keyparts[1].toLowerCase(),
-            fileName: keyparts.slice(2).join('.'),
-            fullPath: localStorage[key],
-            coords: ""
-          };
-
-          if(localStorage.hasOwnProperty('coords.' + key)){
-            mediaFile['coords'] = localStorage['coords.' + key];
-          }
-
-          console.log(mediaFile);
-          this.uploadMediaFile(mediaFile);
-        }
-      }
-      // console.log(keys);
-      // that.persistMedia(trackName, dataType, mediaFiles[i].name, mediaFiles[i].fullPath);
-      // window.localStorage.setItem(trackId + '.' + dataType + '.' + fileName, fullPath);
-    },
-
-    uploadMediaFile: function(mediaFile){
-      var ft = new FileTransfer(),
-            path = mediaFile.fullPath,
-            name = mediaFile.fileName
-            coords = mediaFile.coords; // TODOOOOOOOOOOOOOOOOOOO
-
-        ft.upload(path,
-            myDeviceFilesUrl + window.device.uuid + '/' + coords,
-            function(result) {
-                console.log('Upload success: ' + result.responseCode);
-                console.log(result.bytesSent + ' bytes sent');
-            },
-            function(error) {
-                console.log('Error uploading file ' + path + ': ' + error.code + ' ' + error.message);
-            },
-            { fileName: name });
     },
 
     initTrackingButtons: function(map){
@@ -562,21 +508,6 @@ var app = {
         'toggleStatus': false  // bool
       };
       this.demoButton = new L.Control.ButtonTopLeft(demoOptions).addTo(map);
-
-      function sync() {
-        console.log("syncFiles");
-        that.syncFiles();
-      }
-      var syncOptions = {
-        'text': 'Sync Files',
-        'iconUrl': 'img/icon-sync.png',
-        'onClick': sync,
-        'hideText': false,
-        'maxWidth': 30,  // number
-        'doToggle': false,  // bool
-        'toggleStatus': false  // bool
-      };
-      this.syncFilesButton = new L.Control.ButtonBottomRight(syncOptions).addTo(map);
     },
 
     addNotesAndFiles: function(){
@@ -639,13 +570,7 @@ var app = {
     },
 
     persistMedia: function(trackId, dataType, fileName, fullPath){
-      var position = this.currentPosition;
-      var coords = 'lat:-1,lng:-1';
-      if(position){
-        coords = 'lat:' + position.coords.latitude + ',lng:' + position.coords.longitude;
-      }
       window.localStorage.setItem(trackId + '.' + dataType + '.' + fileName, fullPath);
-      window.localStorage.setItem('coords.' + trackId + '.' + dataType + '.' + fileName, coords);
     },
 
     persistTrack: function(trackId, dataType, trackName, trackPoints){

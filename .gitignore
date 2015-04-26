@@ -7,3 +7,7 @@ www/.project
 ###################
 platforms
 /*.log
+*.db
+/www/*.db
+/www/*.db
+/www/img/mapTiles/14/4747/*.db

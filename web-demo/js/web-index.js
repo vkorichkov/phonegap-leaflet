@@ -19,263 +19,16 @@
 
 //////////////////////////////////////////////////////////////////
 
-var trackForPlay = [
-  {
-    lng:23.32173228263855,
-    lat:42.70188171657805
-  },
-  {
-    lng:23.321603536605835,
-    lat:42.70143229621425
-  },
-  {
-    lng:23.32193613052368,
-    lat:42.70140075782095
-  },
-  {
-    lng:23.32270860671997,
-    lat:42.70127460408752
-  },
-  {
-    lng:23.322365283966064,
-    lat:42.700210171756446
-  },
-  {
-    lng:23.32170009613037,
-    lat:42.697892011536766,
-    poi:[{
-        desc: "Света София",
-        images: ['http://monuments.bg/img/photos/1x700_94943__6017977.jpg'],
-        lng:23.322020,
-        lat:42.697651
-      },
-    ]
-  },
-  {
-    lng:23.32170009613037,
-    lat:42.697892011536766,
-    poi:[{
-        desc: "Метро станция Сердика",
-        images: ['http://www.sofia-guide.com/assets/metro_serdika_tzum.jpg'],
-        lng:23.321140,
-        lat:42.698005
-      },
-    ]
-  },
-  {
-    lng:23.334660530090332,
-    lat:42.69245109152106
-  },
-  {
-    lng:23.332428932189938,
-    lat:42.68614218171535
-  },
-  {
-    lng:23.331377506256104,
-    lat:42.686063316287765
-  },
-  {
-    lng:23.330562114715576,
-    lat:42.68544816251638
-  },
-  {
-    lng:23.331034183502194,
-    lat:42.68338183217684
-  },
-  {
-    lng:23.332021236419674,
-    lat:42.678838818493894
-  },
-  {
-    lng:23.333373069763184,
-    lat:42.6768669209854
-  },
-  {
-    lng:23.33320140838623,
-    lat:42.676677615532626
-  },
-  {
-    lng:23.333566188812256,
-    lat:42.676251676155346
-  },
-  {
-    lng:23.33000421524048,
-    lat:42.67500539232029
-  },
-  {
-    lng:23.330454826354977,
-    lat:42.674484785342756
-  }
-];
-
-var mytracks = {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            23.321839570999146,
-            42.67846021902611
-          ],
-          [
-            23.32269787788391,
-            42.678318243630976
-          ],
-          [
-            23.32275152206421,
-            42.67852331909763
-          ],
-          [
-            23.322783708572388,
-            42.67864163155894
-          ],
-          [
-            23.322612047195435,
-            42.6788309310285
-          ],
-          [
-            23.3225154876709,
-            42.679036004803095
-          ],
-          [
-            23.322730064392086,
-            42.67917797855822
-          ],
-          [
-            23.32348108291626,
-            42.6794303755442
-          ],
-          [
-            23.323169946670532,
-            42.679564461025976
-          ],
-          [
-            23.323963880538937,
-            42.68049516404254
-          ],
-          [
-            23.32419991493225,
-            42.68070811955256
-          ],
-          [
-            23.32398533821106,
-            42.68083431506593
-          ],
-          [
-            23.32369565963745,
-            42.681883305350254
-          ],
-          [
-            23.323856592178345,
-            42.682183013607094
-          ],
-          [
-            23.323577642440796,
-            42.68262468629776
-          ],
-          [
-            23.32348108291626,
-            42.68282974755112
-          ],
-          [
-            23.32395315170288,
-            42.683618438371724
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            23.32173228263855,
-            42.70188171657805
-          ],
-          [
-            23.321603536605835,
-            42.70143229621425
-          ],
-          [
-            23.32193613052368,
-            42.70140075782095
-          ],
-          [
-            23.32270860671997,
-            42.70127460408752
-          ],
-          [
-            23.322365283966064,
-            42.700210171756446
-          ],
-          [
-            23.32170009613037,
-            42.697892011536766
-          ],
-          [
-            23.334660530090332,
-            42.69245109152106
-          ],
-          [
-            23.332428932189938,
-            42.68614218171535
-          ],
-          [
-            23.331377506256104,
-            42.686063316287765
-          ],
-          [
-            23.330562114715576,
-            42.68544816251638
-          ],
-          [
-            23.331034183502194,
-            42.68338183217684
-          ],
-          [
-            23.332021236419674,
-            42.678838818493894
-          ],
-          [
-            23.333373069763184,
-            42.6768669209854
-          ],
-          [
-            23.33320140838623,
-            42.676677615532626
-          ],
-          [
-            23.333566188812256,
-            42.676251676155346
-          ],
-          [
-            23.33000421524048,
-            42.67500539232029
-          ],
-          [
-            23.330454826354977,
-            42.674484785342756
-          ]
-        ]
-      }
-    }
-  ]
-};
-
-var myDeviceGpsUrl = 'http://www.korichkov.com/vvk/gps/';
-var myDeviceFilesUrl = 'http://www.korichkov.com/vvk/files/';
+var myDevice = 'http://www.korichkov.com/vvk/gps/cdf216ebb48f96ff';
+var deviceId = 'cdf216ebb48f96ff';
 
 //////////////////////////////////////////////////////////////////
 
 var app = {
     // Application Constructor
     initialize: function() {
+
+        var that = this;
 
         // TODO Hack http://stackoverflow.com/questions/19491875/phonegap-cordova-geolocation-not-working-on-android
         this.geolocation = false;
@@ -307,8 +60,8 @@ var app = {
         //}).addTo(map);
 
 
-        L.marker([42.674484785342756, 23.330583572387695]).addTo(map)
-            .bindPopup("<b>FMI</b><br />Hello world!").openPopup();
+        //L.marker([42.674484785342756, 23.330583572387695]).addTo(map)
+        //    .bindPopup("<b>FMI</b><br />Hello world!").openPopup();
 
         var popup = L.popup();
 
@@ -321,45 +74,58 @@ var app = {
 
         map.on('click', onMapClick);
 
-        this.showTrackgeoJson(map, mytracks);
-
         this.map = map;
+    },
+
+    clearNegativeCoords: function(dataArray){
+      var newArr = [];
+      for(var key in dataArray){
+        var arr = dataArray[key];
+        if(arr[0] === -1 && arr[1] === -1){
+          // skip
+        } else {
+          newArr.push(arr);
+        }
+      }
+      return newArr;
     },
 
     locateUser: function (map) {
       var that = this;
-      console.log('locateUser');
-      // !!! AFTER the deviceready event:
-      // this.geolocation - native HTML5 geolocation; navigator.geolocation - cordova geolocation plugin
-      var locationService = this.geolocation || navigator.geolocation;
-      //locationService.getCurrentPosition(
-      //    function(position){
-      //      that.onGpsSuccess(position);
-      //    },
-      //    function(error){
-      //      that.onGpsError(error);
-      //    }, 
-      //    {enableHighAccuracy: true, timeout: 30000}  
-      //);
-      locationService.watchPosition(
-        function(position){
-          that.onGpsSuccess(position);
-        },
-        function(error){
-          that.onGpsError(error);
-        }, 
-        { enableHighAccuracy: true, timeout: 35000 }
-      );
+      $.getJSON(myDevice, function(data) {
+          var track = data['geojson']['features'][0]['geometry']['coordinates'];
+          track = that.clearNegativeCoords(track);
+          data['geojson']['features'][0]['geometry']['coordinates'] = track;
+          that.showTrackgeoJson(map, data['geojson']);
+
+
+          var latlng = [data['current_pos']['lat'], data['current_pos']['lng']];
+          var popupContent = "Device Id " + deviceId;
+          var radius = 5;
+
+          if(!this.currentPosMarker){
+            this.currentPosMarker = L.marker(latlng).addTo(map)
+              .bindPopup(popupContent).openPopup();
+          }
+          
+          this.currentPosMarker.bindPopup(popupContent).setLatLng(latlng).update().openPopup();
+          if(!this.currentPosCircle){
+            this.currentPosCircle = L.circle(latlng, radius).addTo(map);
+          } else {
+            map.removeLayer(this.currentPosCircle);
+            this.currentPosCircle = L.circle(latlng, radius).addTo(map);
+          }
+
+          map.setZoom(19).panTo(latlng);
+
+        });
     },
 
     onGpsSuccess: function (position) {
       console.log('onGpsSuccess');
       console.log(position.coords.latitude);
-      coords = 'lat:' + position.coords.latitude + ',lng:' + position.coords.longitude;
-      $.get(myDeviceGpsUrl + window.device.uuid + '/' + coords);
 
       this.showCurrentPosition(this.map, position);
-
       // Latitude, Longitude, Altitude, Accuracy, Heading, Timestamp
       //  $('#geolocation').html('Latitude: '        + position.coords.latitude              + '<br />' + 
       //                      'Longitude: '          + position.coords.longitude             + '<br />' +
@@ -389,8 +155,6 @@ var app = {
         map.removeLayer(this.currentPosCircle);
         this.currentPosCircle = L.circle(latlng, radius).addTo(map);
       }
-
-      this.currentPosition = position;
     },
 
     dummyCurrentPosition: function(that, map, position){
@@ -439,60 +203,15 @@ var app = {
       }).addTo(map);
     },
 
-    syncFiles: function(){
-      var localStorage = window.localStorage;
-      var trackName = (this.trackName || "Test Track Name").replace(/\s/g, ''); // todo
-      var keys = [];
-      for (var key in localStorage){
-        if(key.indexOf(trackName) !== -1 && key.indexOf('coords') === -1){
-          //keys.push(key);
-          var keyparts = key.split('.')
-          var mediaFile = {
-            trackId: keyparts[0],
-            mediaType: keyparts[1].toLowerCase(),
-            fileName: keyparts.slice(2).join('.'),
-            fullPath: localStorage[key],
-            coords: ""
-          };
-
-          if(localStorage.hasOwnProperty('coords.' + key)){
-            mediaFile['coords'] = localStorage['coords.' + key];
-          }
-
-          console.log(mediaFile);
-          this.uploadMediaFile(mediaFile);
-        }
-      }
-      // console.log(keys);
-      // that.persistMedia(trackName, dataType, mediaFiles[i].name, mediaFiles[i].fullPath);
-      // window.localStorage.setItem(trackId + '.' + dataType + '.' + fileName, fullPath);
-    },
-
-    uploadMediaFile: function(mediaFile){
-      var ft = new FileTransfer(),
-            path = mediaFile.fullPath,
-            name = mediaFile.fileName
-            coords = mediaFile.coords; // TODOOOOOOOOOOOOOOOOOOO
-
-        ft.upload(path,
-            myDeviceFilesUrl + window.device.uuid + '/' + coords,
-            function(result) {
-                console.log('Upload success: ' + result.responseCode);
-                console.log(result.bytesSent + ' bytes sent');
-            },
-            function(error) {
-                console.log('Error uploading file ' + path + ': ' + error.code + ' ' + error.message);
-            },
-            { fileName: name });
-    },
-
     initTrackingButtons: function(map){
       var that = this;
 
       function toggleOptionButtons() {
         console.log("toggleOptionButtons");
-        // TODO
         that.locateUser(map);
+        setTimeout(function(){
+          toggleOptionButtons()
+        }, 3000);
       }
       var trackingOptions = {
         'text': 'Tracking',
@@ -504,79 +223,6 @@ var app = {
         'toggleStatus': false  // bool
       };
       this.trackingButton = new L.Control.Button(trackingOptions).addTo(map);
-
-      function toggleRecording() {
-        console.log("toggleRecording");
-        // TODO
-        that.dumpLocalStorage();
-      }
-      var recordingOptions = {
-        'text': 'Record',
-        'iconUrl': 'img/icon-recording.png',
-        'onClick': toggleRecording,
-        'hideText': false,
-        'maxWidth': 30,  // number
-        'doToggle': false,  // bool
-        'toggleStatus': false  // bool
-      };
-      this.recordingButton = new L.Control.Button(recordingOptions).addTo(map);
-
-      function addNotes() {
-        console.log("addNotes");
-        that.addNotesAndFiles();
-      }
-
-      var notesOptions = {
-        'text': 'Notes',
-        'iconUrl': 'img/icon-notes.png',
-        'onClick': addNotes,
-        'hideText': false,
-        'maxWidth': 30,  // number
-        'doToggle': false,  // bool
-        'toggleStatus': false  // bool
-      };
-      this.recordingButton = new L.Control.Button(notesOptions).addTo(map);
-
-      var copytrack = trackForPlay.slice();
-      function demo() {
-        console.log("demo");
-        if(copytrack.length === 0){
-          copytrack = trackForPlay.slice();
-          that.poiToRemove = that.poiToRemove || [];
-          for(var key in that.poiToRemove){
-            that.map.removeLayer(that.poiToRemove[key]);
-          }
-          return;
-        }
-        window.setTimeout(demo, 1800);
-        that.dummyCurrentPosition(that, that.map, copytrack.pop());
-      }
-
-      var demoOptions = {
-        'text': 'Demo',
-        'iconUrl': 'img/icon-play.png',
-        'onClick': demo,
-        'hideText': false,
-        'maxWidth': 30,  // number
-        'doToggle': false,  // bool
-        'toggleStatus': false  // bool
-      };
-      this.demoButton = new L.Control.ButtonTopLeft(demoOptions).addTo(map);
-
-      function sync() {
-        console.log("syncFiles");
-        that.syncFiles();
-      }
-      var syncOptions = {
-        'text': 'Sync Files',
-        'iconUrl': 'img/icon-sync.png',
-        'onClick': sync,
-        'hideText': false,
-        'maxWidth': 30,  // number
-        'doToggle': false,  // bool
-        'toggleStatus': false  // bool
-      };
-      this.syncFilesButton = new L.Control.ButtonBottomRight(syncOptions).addTo(map);
     },
 
     addNotesAndFiles: function(){
@@ -639,13 +285,7 @@ var app = {
     },
 
     persistMedia: function(trackId, dataType, fileName, fullPath){
-      var position = this.currentPosition;
-      var coords = 'lat:-1,lng:-1';
-      if(position){
-        coords = 'lat:' + position.coords.latitude + ',lng:' + position.coords.longitude;
-      }
       window.localStorage.setItem(trackId + '.' + dataType + '.' + fileName, fullPath);
-      window.localStorage.setItem('coords.' + trackId + '.' + dataType + '.' + fileName, coords);
     },
 
     persistTrack: function(trackId, dataType, trackName, trackPoints){
@@ -683,7 +323,6 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        this.locateUser(this.map);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
