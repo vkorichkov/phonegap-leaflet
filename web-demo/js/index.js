@@ -369,8 +369,7 @@ var app = {
       console.log(position.coords.longitude);
       var radius = position.coords.accuracy / 2;
       var latlng = [position.coords.latitude, position.coords.longitude];
-      var popupContent = '<img height="100px" width="100px" src="' + document.getElementById('myImage').src + '">'+
-        "<br>You are within " + radius + " meters from this point";
+      var popupContent = "You are within " + radius + " meters from this point";
 
       if(!this.currentPosMarker){
         this.currentPosMarker = L.marker(latlng).addTo(map)

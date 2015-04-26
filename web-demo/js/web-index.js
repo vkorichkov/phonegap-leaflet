@@ -118,7 +118,7 @@ var app = {
           }
 
           map.setZoom(19).panTo(latlng);
-        });
+      });
       
       that.files = that.files || {};
       $.getJSON(myFiles, function(data) {
@@ -224,10 +224,10 @@ var app = {
 
       function toggleOptionButtons() {
         console.log("toggleOptionButtons");
-        that.locateUser(map);
-        setTimeout(function(){
-          toggleOptionButtons()
-        }, 3000);
+        that.locateUser(that.map);
+        //setTimeout(function(){
+        //  toggleOptionButtons()
+        //}, 3000);
       }
       var trackingOptions = {
         'text': 'Tracking',
