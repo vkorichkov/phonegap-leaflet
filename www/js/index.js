@@ -292,15 +292,15 @@ var app = {
         var map = L.map('map-canvas').setView([42.674484785342756, 23.330583572387695], 13);
         
         //this works, but is online:
-        L.tileLayer('http://192.168.25.88:3333/osm_tiles/{z}/{x}/{y}.png', {
-            maxZoom: 19
+        L.tileLayer('http://korichkov.com/osm_tiles/{z}/{x}/{y}.png', {
+            maxZoom: 18
         }).addTo(map);
 
         this.initTrackingButtons(map);
         
-        //TODO build something to fall back to web if not found.
+        // TODO build something to fall back to web if not found.
         //L.tileLayer('img/mapTiles/{z}/{x}/{y}.png', {
-        //  maxZoom: 17
+        //  maxZoom: 18
         //}).addTo(map);
 
 
